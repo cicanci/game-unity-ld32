@@ -6,6 +6,6 @@ public class Letter : MonoBehaviour {
 	public string LetterValue;
 
 	public void PrintLetter() {
-		LetterManager.Instance.PrintLetter(LetterValue);
+		WordManager.Instance.PrintLetter(LetterValue);
 	}
 }
