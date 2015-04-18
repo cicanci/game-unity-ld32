@@ -11,17 +11,20 @@ public class GameScene : MonoBehaviour {
 	public Text CurrentWordLabel;
 	public Text ScoreLabel;
 	public int DefaultScore;
+	public int WordAnimationSpeed;
 	public string[] ValidWords;
 
-	private string[] mUsedWords;
 	private string mCurrentWord;
 	private int mScore;
+	private string[] mUsedWords;
 	private bool mCanMoveLabel;
 	private Vector2 mCurrentWordStartPosition;
 
 	void Start() {
 		Instance = this;
 		CurrentWordLabel.text = "_";
+
+		mUsedWords = new string[3];
 		mCanMoveLabel = false;
 		mCurrentWordStartPosition = CurrentWordLabel.gameObject.GetComponent<RectTransform>().localPosition;
 	}
@@ -31,7 +34,7 @@ public class GameScene : MonoBehaviour {
 			Vector2 oldPosition = CurrentWordLabel.gameObject.GetComponent<RectTransform>().localPosition;
 
 			if (oldPosition.x < 0) {
-				Vector2 newPosition = new Vector2(oldPosition.x + Time.deltaTime * 1000, oldPosition.y);
+				Vector2 newPosition = new Vector2(oldPosition.x + Time.deltaTime * WordAnimationSpeed, oldPosition.y);
 				CurrentWordLabel.gameObject.GetComponent<RectTransform>().localPosition = newPosition;
 			}
 			else {
@@ -47,17 +50,23 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void SendCurrentText() {
-		if (IsValidWord(mCurrentWord)) {
-			mCanMoveLabel = true;
-			// Remove the _ before the action
-			CurrentWordLabel.text = mCurrentWord;
+		if (!IsUsedWord(mCurrentWord)) {
+			if (IsValidWord(mCurrentWord)) {
+				SwapUsedWords (mCurrentWord);
+				mCanMoveLabel = true;
+				// Remove the _ before the action
+				CurrentWordLabel.text = mCurrentWord;
 
-			MessageManager.Instance.ShowMessage(Color.green);
+				MessageManager.Instance.ShowMessage(Color.green);
+			} 
+			else {
+				ClearCurrentText();
+				MessageManager.Instance.ShowMessage(Color.red);
+			}
 		}
 		else {
 			ClearCurrentText();
-
-			MessageManager.Instance.ShowMessage(Color.red);
+			MessageManager.Instance.ShowMessage(Color.yellow);
 		}
 	}
 
@@ -74,9 +83,24 @@ public class GameScene : MonoBehaviour {
 		
 		mScore += DefaultScore;
 		ScoreLabel.text = mScore.ToString();
-
+		
 		EnemyManager.Instance.CreateEnemy();
 		ClearCurrentText();
+	}
+
+	private void SwapUsedWords(string pNewWord) {
+		mUsedWords[2] = mUsedWords[1];
+		mUsedWords[1] = mUsedWords[0];
+		mUsedWords[0] = pNewWord;
+	}
+
+	private bool IsUsedWord(string pWord) {
+		foreach (string word in mUsedWords) {
+			if (word == pWord) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private bool IsValidWord(string pWord) {
