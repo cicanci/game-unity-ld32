@@ -4,10 +4,10 @@ using System.Collections;
 public class ButtonController : MonoBehaviour {
 
 	public void ClearCurrentText() {
-		WordManager.Instance.ClearCurrentText();
+		GameScene.Instance.ClearCurrentText();
 	}
 
 	public void SendCurrentText() {
-		WordManager.Instance.SendCurrentText();
+		GameScene.Instance.SendCurrentText();
 	}
 }
