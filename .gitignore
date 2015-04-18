@@ -1,3 +1,9 @@
 Builds/
 LudumDare32/Library/
 LudumDare32/Temp/
+
+*.csproj
+*.unityproj
+*.sln
+*.pidb
+*.userprefs
