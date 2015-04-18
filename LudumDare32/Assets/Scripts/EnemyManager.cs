@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour {
 
 	public GameObject GameCanvas;
 	public GameObject EnemyPrefab;
-	public float TimeFactor = 0.1f;
+	public float TimeFactor;
 
 	private GameObject mCurrentEnemy;
 
