@@ -6,11 +6,11 @@ public class GameScene : MonoBehaviour {
 
 	public static GameScene Instance;
 
-	public GameObject GameCanvas;
 	public GameObject WordPanel;
 	public GameObject WordPrefab;
 	public Text CurrentWordLabel;
 	public Text ScoreLabel;
+	public int DefaultScore = 10;
 
 	public string[] ValidWords;
 	private string mCurrentWord;
@@ -31,8 +31,10 @@ public class GameScene : MonoBehaviour {
 			text.transform.SetParent(WordPanel.transform, false);
 			text.GetComponent<Text>().text = mCurrentWord;
 
-			mScore += 10;
+			mScore += DefaultScore;
 			ScoreLabel.text = mScore.ToString();
+
+			EnemyManager.Instance.CreateEnemy();
 		}
 
 		ClearCurrentText ();
