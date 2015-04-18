@@ -77,7 +77,7 @@ public class LetterManager : MonoBehaviour {
 	}
 
 	public void SendCurrentText() {
-		Debug.Log(mTempText.text);
+		WordManager.Instance.CheckWord(mTempText.text);
 		mTempText.text = string.Empty;
 	}
 
