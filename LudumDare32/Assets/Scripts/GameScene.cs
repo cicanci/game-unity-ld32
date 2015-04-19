@@ -25,6 +25,7 @@ public class GameScene : MonoBehaviour {
 	void Start() {
 		Instance = this;
 		CurrentWordLabel.text = "_";
+		ValidWords = GameData.ThemeOptions;
 
 		mUsedWords = new string[3];
 		mCanMoveLabel = false;
@@ -82,11 +83,7 @@ public class GameScene : MonoBehaviour {
 		GameObject gameover = Instantiate<GameObject>(GameOverPrefab);
 		gameover.transform.SetParent(GameCanvas.transform, false);
 
-		gameover.GetComponentInChildren<Text>().text = mScore + " words";
-	}
-
-	public void PlayAgain() {
-		Application.LoadLevel("Game");
+		gameover.GetComponentInChildren<Text>().text = mScore + (mScore > 1 ? " words" : " word");
 	}
 
 	private void AddTextToPanel() {

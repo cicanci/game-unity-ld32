@@ -12,6 +12,26 @@ public class ButtonController : MonoBehaviour {
 	}
 
 	public void PlayAgain() {
-		GameScene.Instance.PlayAgain();
+		Application.LoadLevel("Menu");
+	}
+
+	public void PlayGame() {
+		Application.LoadLevel("Game");
+	}
+
+	public void ShowMenuSecondPanel() {
+		MenuScene.Instance.ShowMenuSecondPanel();
+	}
+
+	public void SetDificultEasy() {
+		MenuScene.Instance.ShowMenuThirdPanel(GameDifficult.Easy);
+	}
+
+	public void SetDificultNormal() {
+		MenuScene.Instance.ShowMenuThirdPanel(GameDifficult.Normal);
+	}
+
+	public void SetDificultHard() {
+		MenuScene.Instance.ShowMenuThirdPanel(GameDifficult.Hard);
 	}
 }
