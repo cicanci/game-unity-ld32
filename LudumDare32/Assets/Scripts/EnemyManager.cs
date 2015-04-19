@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour {
 			Vector2 oldScale = mCurrentEnemy.GetComponent<RectTransform>().localScale;
 			Vector2 newScale = new Vector2(oldScale.x + Time.deltaTime * TimeFactor, oldScale.y + Time.deltaTime * TimeFactor);
 
-			if (newScale.x > 2) {
+			if (newScale.x > 1.8f) {
 				GameScene.Instance.ShowGameOver();
 				mGameOver = true;
 			}
