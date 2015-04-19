@@ -22,6 +22,7 @@ public class MenuScene : MonoBehaviour {
 	void Start() {
 		Instance = this;
 		mSlideFirstPanel = true;
+		PlaySound("menu_transition");
 	}
 	
 	void Update() {
@@ -74,17 +75,44 @@ public class MenuScene : MonoBehaviour {
 	}
 
 	public void ShowMenuSecondPanel() {
+		PlaySound("button_generic");
+
 		mSlideSecondPanel = true;
+
+		PlaySound("menu_transition");
 	}
 	
 	public void ShowMenuThirdPanel(GameDifficult pDifficult) {
+		PlaySound("button_generic");
+
 		GameData.SelectRandomTheme(pDifficult);
 		ThirdPanel.GetComponentInChildren<Text>().text = GameData.Theme;
 		mSlideThirdPanel = true;
+
+		PlaySound("menu_transition");
 	}
 
 	public void ShowMenuTutorialPanel() {
 		mTutorialPanelTimer = TutorialTimer;
 		mSlideTutorialPanel = true;
+
+		PlaySound("menu_transition");
+	}
+
+	public void PlayGame() {
+		PlaySound("button_generic");
+
+		if (GameData.CanShowTutorial) {
+			GameData.CanShowTutorial = false;
+			ShowMenuTutorialPanel();
+		}
+		else {
+			Application.LoadLevel("Game");
+		}
+	}
+
+	private void PlaySound(string pFileName) {
+		AudioClip audioClip = Resources.Load<AudioClip>("sfx/" + pFileName);
+		GetComponent<AudioSource>().PlayOneShot(audioClip);
 	}
 }

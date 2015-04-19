@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour {
 	public GameObject GameCanvas;
 	public GameObject EnemyPrefab;
 	public float TimeFactor;
+	public float EnemyKillDistance;
 
 	private GameObject mCurrentEnemy;
 	private bool mGameOver;
@@ -23,7 +24,7 @@ public class EnemyManager : MonoBehaviour {
 			Vector2 oldScale = mCurrentEnemy.GetComponent<RectTransform>().localScale;
 			Vector2 newScale = new Vector2(oldScale.x + Time.deltaTime * TimeFactor, oldScale.y + Time.deltaTime * TimeFactor);
 
-			if (newScale.x > 1.8f) {
+			if (newScale.x > EnemyKillDistance) {
 				GameScene.Instance.ShowGameOver();
 				mGameOver = true;
 			}

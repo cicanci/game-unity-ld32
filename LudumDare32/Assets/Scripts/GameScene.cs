@@ -48,11 +48,15 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void PrintLetter(string pWord) {
+		PlaySound("button_letter");
+
 		mCurrentWord += pWord;
 		CurrentWordLabel.text = mCurrentWord + "_";
 	}
 
 	public void SendCurrentText() {
+		PlaySound("button_send");
+
 		if (!IsUsedWord(mCurrentWord)) {
 			if (IsValidWord(mCurrentWord)) {
 				SwapUsedWords (mCurrentWord);
@@ -74,19 +78,31 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void ClearCurrentText() {
+		PlaySound("button_clear");
+
 		mCurrentWord = string.Empty;
 		CurrentWordLabel.text = "_";
 		CurrentWordLabel.gameObject.GetComponent<RectTransform>().localPosition = mCurrentWordStartPosition;
 	}
 
 	public void ShowGameOver() {
+		PlaySound("game_over");
+
 		GameObject gameover = Instantiate<GameObject>(GameOverPrefab);
 		gameover.transform.SetParent(GameCanvas.transform, false);
 
 		gameover.GetComponentInChildren<Text>().text = mScore + (mScore > 1 ? " words" : " word");
 	}
 
+	public void PlayAgain() {
+		PlaySound("button_generic");
+
+		Application.LoadLevel("Menu");
+	}
+
 	private void AddTextToPanel() {
+		PlaySound("letter_added");
+
 		GameObject text = Instantiate<GameObject>(WordPrefab);
 		text.transform.SetParent(WordPanel.transform, false);
 		text.GetComponent<Text>().text = mCurrentWord;
@@ -120,5 +136,10 @@ public class GameScene : MonoBehaviour {
 			}
 		}
 		return false;
+	}
+
+	private void PlaySound(string pFileName) {
+		AudioClip audioClip = Resources.Load<AudioClip>("sfx/" + pFileName);
+		GetComponent<AudioSource>().PlayOneShot(audioClip);
 	}
 }

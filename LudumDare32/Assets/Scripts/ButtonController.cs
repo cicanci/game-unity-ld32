@@ -12,17 +12,11 @@ public class ButtonController : MonoBehaviour {
 	}
 
 	public void PlayAgain() {
-		Application.LoadLevel("Menu");
+		GameScene.Instance.PlayAgain();
 	}
 
 	public void PlayGame() {
-		if (GameData.CanShowTutorial) {
-			GameData.CanShowTutorial = false;
-			MenuScene.Instance.ShowMenuTutorialPanel();
-		}
-		else {
-			Application.LoadLevel("Game");
-		}
+		MenuScene.Instance.PlayGame();
 	}
 
 	public void ShowMenuSecondPanel() {
