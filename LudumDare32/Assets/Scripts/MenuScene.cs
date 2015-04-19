@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -93,6 +93,8 @@ public class MenuScene : MonoBehaviour {
 	}
 
 	public void ShowMenuTutorialPanel() {
+		PlaySound("button_generic");
+
 		mTutorialPanelTimer = TutorialTimer;
 		mSlideTutorialPanel = true;
 
@@ -100,8 +102,6 @@ public class MenuScene : MonoBehaviour {
 	}
 
 	public void PlayGame() {
-		PlaySound("button_generic");
-
 		if (GameData.CanShowTutorial) {
 			GameData.CanShowTutorial = false;
 			ShowMenuTutorialPanel();
