@@ -6,8 +6,10 @@ public class GameScene : MonoBehaviour {
 
 	public static GameScene Instance;
 
+	public GameObject GameCanvas;
 	public GameObject WordPanel;
 	public GameObject WordPrefab;
+	public GameObject GameOverPrefab;
 	public Text CurrentWordLabel;
 	public Text ScoreLabel;
 	public int DefaultScore;
@@ -74,6 +76,17 @@ public class GameScene : MonoBehaviour {
 		mCurrentWord = string.Empty;
 		CurrentWordLabel.text = "_";
 		CurrentWordLabel.gameObject.GetComponent<RectTransform>().localPosition = mCurrentWordStartPosition;
+	}
+
+	public void ShowGameOver() {
+		GameObject gameover = Instantiate<GameObject>(GameOverPrefab);
+		gameover.transform.SetParent(GameCanvas.transform, false);
+
+		gameover.GetComponentInChildren<Text>().text = mScore + " words";
+	}
+
+	public void PlayAgain() {
+		Application.LoadLevel("Game");
 	}
 
 	private void AddTextToPanel() {

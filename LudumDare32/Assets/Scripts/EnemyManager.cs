@@ -10,19 +10,22 @@ public class EnemyManager : MonoBehaviour {
 	public float TimeFactor;
 
 	private GameObject mCurrentEnemy;
+	private bool mGameOver;
 
 	void Start() {
 		Instance = this;
+		mGameOver = false;
 		CreateEnemy();
 	}
 	
 	void Update() {
-		if (mCurrentEnemy != null) {
+		if ((!mGameOver) && (mCurrentEnemy != null)) {
 			Vector2 oldScale = mCurrentEnemy.GetComponent<RectTransform>().localScale;
 			Vector2 newScale = new Vector2(oldScale.x + Time.deltaTime * TimeFactor, oldScale.y + Time.deltaTime * TimeFactor);
 
 			if (newScale.x > 2) {
-				Debug.Log("GAME OVER");
+				GameScene.Instance.ShowGameOver();
+				mGameOver = true;
 			}
 			else {
 				mCurrentEnemy.GetComponent<RectTransform>().localScale = newScale;

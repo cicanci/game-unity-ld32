@@ -10,4 +10,8 @@ public class ButtonController : MonoBehaviour {
 	public void SendCurrentText() {
 		GameScene.Instance.SendCurrentText();
 	}
+
+	public void PlayAgain() {
+		GameScene.Instance.PlayAgain();
+	}
 }
