@@ -16,7 +16,13 @@ public class ButtonController : MonoBehaviour {
 	}
 
 	public void PlayGame() {
-		Application.LoadLevel("Game");
+		if (GameData.CanShowTutorial) {
+			GameData.CanShowTutorial = false;
+			MenuScene.Instance.ShowMenuTutorialPanel();
+		}
+		else {
+			Application.LoadLevel("Game");
+		}
 	}
 
 	public void ShowMenuSecondPanel() {

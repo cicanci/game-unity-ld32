@@ -9,11 +9,15 @@ public class MenuScene : MonoBehaviour {
 	public GameObject FirstPanel;
 	public GameObject SecondPanel;
 	public GameObject ThirdPanel;
+	public GameObject TutorialPanel;
 	public int SlideSpeed;
+	public float TutorialTimer;
 
 	private bool mSlideFirstPanel;
 	private bool mSlideSecondPanel;
 	private bool mSlideThirdPanel;
+	private bool mSlideTutorialPanel;
+	private float mTutorialPanelTimer;
 
 	void Start() {
 		Instance = this;
@@ -50,6 +54,23 @@ public class MenuScene : MonoBehaviour {
 			}
 			ThirdPanel.GetComponent<RectTransform>().localPosition = newPosition;
 		}
+
+		if (mSlideTutorialPanel) {
+			Vector2 oldPosition = TutorialPanel.GetComponent<RectTransform>().localPosition;
+			Vector2 newPosition = new Vector2(oldPosition.x - Time.deltaTime * SlideSpeed, oldPosition.y);
+			if (newPosition.x < 0) {
+				newPosition = new Vector2(0, oldPosition.y);
+			}
+			TutorialPanel.GetComponent<RectTransform>().localPosition = newPosition;
+
+			if (mTutorialPanelTimer < 0) {
+				mSlideTutorialPanel = false;
+				Application.LoadLevel("Game");
+			}
+			else {
+				mTutorialPanelTimer -= Time.deltaTime;
+			}
+		}
 	}
 
 	public void ShowMenuSecondPanel() {
@@ -60,5 +81,10 @@ public class MenuScene : MonoBehaviour {
 		GameData.SelectRandomTheme(pDifficult);
 		ThirdPanel.GetComponentInChildren<Text>().text = GameData.Theme;
 		mSlideThirdPanel = true;
+	}
+
+	public void ShowMenuTutorialPanel() {
+		mTutorialPanelTimer = TutorialTimer;
+		mSlideTutorialPanel = true;
 	}
 }

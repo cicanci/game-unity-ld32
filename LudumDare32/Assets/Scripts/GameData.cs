@@ -9,6 +9,8 @@ public enum GameDifficult {
 
 public class GameData : MonoBehaviour {
 
+	public static bool CanShowTutorial = true;
+
 	public static GameDifficult Difficult { get; set; }
 	public static string Theme { get; set; }
 	public static string[] ThemeOptions { get; set; }
