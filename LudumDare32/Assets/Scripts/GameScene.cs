@@ -95,8 +95,6 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void PlayAgain() {
-		PlaySound("button_generic");
-
 		Application.LoadLevel("Menu");
 	}
 
